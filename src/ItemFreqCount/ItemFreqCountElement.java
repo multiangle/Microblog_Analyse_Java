@@ -39,4 +39,10 @@ public class ItemFreqCountElement implements DateInElementInterface{
     public long getTimestamp(){
         return this.timestamp ;
     }
+
+    public ItemFreqCountElement clone(){
+        ItemFreqCountElement alter = new ItemFreqCountElement(this.dict_id,this.timestamp/1000) ;
+        alter.addFreq(this.freq-1);
+        return alter ;
+    }
 }
