@@ -1,22 +1,21 @@
 package ItemFreqCount;
 
 /**
- * Created by multiangle on 2016/7/23.
+ * Created by multiangle on 2016/7/24.
  */
 
 import java.sql.Timestamp;
 import java.util.Date ;
 
-public class ItemFreqCountElement implements DateInElementInterface{
-
+public class WordCountElement implements DateInElementInterface{
     private Date date ;
     private long timestamp ;
     private int dict_id ;
     private int freq ;
 
-    ItemFreqCountElement(int dict_id,long timestamp){
-        this.timestamp = timestamp*1000 ;  // 这边*1000， 是因为原数据以秒为单位，这里以毫秒为单位
-        this.date = new Timestamp(this.timestamp) ;
+    WordCountElement(int dict_id,long timestamp){
+        this.timestamp = timestamp ;  // 这里假设timestamp已经以毫秒为单位
+        this.date = new Date(timestamp) ;
         this.dict_id = dict_id ;
         this.freq = 1 ;  // 初始的频率为 1
     }
@@ -26,7 +25,7 @@ public class ItemFreqCountElement implements DateInElementInterface{
         return this.freq ;
     }
     public void addFreq(){
-        this.freq += 1 ;
+        addFreq(1);
     }
     public void addFreq(int N){
         this.freq += N ;
@@ -40,8 +39,8 @@ public class ItemFreqCountElement implements DateInElementInterface{
         return this.timestamp ;
     }
 
-    public ItemFreqCountElement clone(){
-        ItemFreqCountElement alter = new ItemFreqCountElement(this.dict_id,this.timestamp/1000) ;
+    public WordCountElement clone(){
+        WordCountElement alter = new WordCountElement(this.dict_id,this.timestamp/1000) ;
         alter.addFreq(this.freq-1);
         return alter ;
     }
