@@ -5,6 +5,7 @@ package ItemFreqCount;
  */
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date ;
 
 public class WordCountElement implements DateInElementInterface{
@@ -24,6 +25,9 @@ public class WordCountElement implements DateInElementInterface{
     public int getFreq(){
         return this.freq ;
     }
+    public void setFreq(int N){
+        this.freq = N ;
+    }
     public void addFreq(){
         addFreq(1);
     }
@@ -39,9 +43,32 @@ public class WordCountElement implements DateInElementInterface{
         return this.timestamp ;
     }
 
+    public int getDict_id(){
+        return this.dict_id ;
+    }
     public WordCountElement clone(){
         WordCountElement alter = new WordCountElement(this.dict_id,this.timestamp/1000) ;
-        alter.addFreq(this.freq-1);
+        alter.setFreq(this.freq);
         return alter ;
+    }
+
+    // 计算按天，月，年统计的时间
+    public static Date[] getCertainDates(long timestamp){
+        Date[] ret = new Date[3] ;
+        Date t = new Date(timestamp) ;
+        Calendar calendar = Calendar.getInstance() ;
+        calendar.setTime(t);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY,0) ;
+        Date day = calendar.getTime() ;
+        calendar.set(Calendar.DATE,1);
+        Date mon = calendar.getTime() ;
+        calendar.set(Calendar.MONTH,0);;
+        Date year = calendar.getTime() ;
+        ret[0] = day ;
+        ret[1] = mon ;
+        ret[2] = year ;
+        return ret;
     }
 }

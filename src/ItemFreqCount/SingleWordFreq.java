@@ -1,5 +1,7 @@
 package ItemFreqCount;
 
+import com.sun.webkit.event.WCChangeEvent;
+
 import java.util.ArrayList;
 import java.util.Date ;
 import java.util.Calendar ;
@@ -50,18 +52,10 @@ public class SingleWordFreq {
     public void addByTimestamp_sec(int timestamp, int N){
         // 这里的timestamp是python格式的,即以秒为单位，这里需要改成java格式的，即以毫秒为单位
         timestamp *= 1000 ;
-        Date t = new Date(timestamp) ;
-        Calendar calendar = Calendar.getInstance() ;
-        calendar.setTime(t);
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.HOUR_OF_DAY,0) ;
-        Date day = calendar.getTime() ;
-        calendar.set(Calendar.DATE,1);
-        Date mon = calendar.getTime() ;
-        calendar.set(Calendar.MONTH,0);;
-        Date year = calendar.getTime() ;
-
+        Date[] certain_dates = WordCountElement.getCertainDates(timestamp) ;
+        Date day = certain_dates[0] ;
+        Date mon = certain_dates[1] ;
+        Date year = certain_dates[2] ;
         this.total_freq += N ;
         _findAndAdd(this.freq_day, day, N);
         _findAndAdd(this.freq_month, mon, N);
