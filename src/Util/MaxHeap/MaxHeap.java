@@ -25,7 +25,7 @@ public class MaxHeap<T> {
     // 如果没达到上限或没有上限，则沿着Array往下
     // 如果得到上线了，则从上往下，踢掉最小的那个值
     public void insert(T element){
-        if (((size>=0)&&(data.size()<size)) || (size<0))
+        if (((size>=0)&&(data.size()<size)) || size<0)
         { // 如果尺寸有限制且当前尺寸没有达到限制, 或者没有尺寸限制
             data.add(element) ;
             int i = data.size()-1 ;
@@ -45,6 +45,7 @@ public class MaxHeap<T> {
         return max_node ;
     }
 
+    // 用于数组满之后的操作
     public void replaceDown(T v, int index){
         while (index*2+1 < data.size()){
             if (index*2+2 < data.size()){ // 如果index有左右节点
