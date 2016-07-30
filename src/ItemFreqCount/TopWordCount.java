@@ -2,9 +2,8 @@ package ItemFreqCount;
 
 import com.sun.webkit.event.WCChangeEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Date ;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Created by multiangle on 2016/7/24.
@@ -83,5 +82,51 @@ class TopWordCountArrayElement implements DateInElementInterface{
     }
     public long getTimestamp(){
         return this.timestamp ;
+    }
+
+    public ArrayList<WordCountElement> topN(int N){
+        WordCountElement[] temp_queue ;
+        if (freq_data.size()<=N){
+            Collection<WordCountElement> v = freq_data.values() ;
+            temp_queue = v.toArray(new WordCountElement[freq_data.size()]) ; // 把所有数据一咕噜放进去
+        }else {
+            temp_queue = new WordCountElement[N];
+            for (int i = 0; i < N; i++) { // 先将前N个放进去
+                temp_queue[i] = freq_data.get(i);
+            }
+            int min_index = 0; // 找到最小的节点
+            for (int i = 1; i < N; i++) {
+                if (temp_queue[i].getFreq() < temp_queue[min_index].getFreq()) {
+                    min_index = i;
+                }
+            }
+            for (int i = N; i < freq_data.size(); i++) {
+                if (freq_data.get(i).getFreq() > temp_queue[min_index].getFreq()) {
+                    temp_queue[min_index] = freq_data.get(i); // 把原最小节点替换成新节点
+                    min_index = 0; // 找到新的最小的节点
+                    for (int j = 1; j < N; i++) {
+                        if (temp_queue[j].getFreq() < temp_queue[min_index].getFreq()) {
+                            min_index = j;
+                        }
+                    }
+                }
+            }
+        }
+        // 到此时为止，已经将前N个最大的数据都放在temp_queue里面，但是是无序的
+        ArrayList<WordCountElement> temp_array = new ArrayList<WordCountElement>() ;
+        for (WordCountElement x:temp_queue){
+            temp_array.add(x) ;
+        }
+        temp_array.sort(new Comparator<WordCountElement>() { // array进行排序
+            @Override
+            public int compare(WordCountElement o1, WordCountElement o2) {
+                return o2.getFreq()-o1.getFreq(); // 进行倒叙排序
+            }
+        });
+
+        return temp_array ;
+
+
+
     }
 }
