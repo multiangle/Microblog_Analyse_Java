@@ -1,14 +1,18 @@
 package ItemFreqCount;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Created by multiangle on 2016/7/24.
  */
-public class WordCount {
-    private TopWordCount top_word_counter ;
-    private HashMap<String, Integer> word_dict ;
-    private HashMap<String, SingleWordFreq> word_freq ;
+public class WordCount implements Serializable{
+
+    private static final long serialVersionUID = 1L ;
+
+    public TopWordCount top_word_counter ;
+    public HashMap<String, Integer> word_dict ;
+    public HashMap<String, SingleWordFreq> word_freq ;
 
     WordCount(){
         top_word_counter = new TopWordCount() ; // 每日流行词统计
@@ -32,4 +36,14 @@ public class WordCount {
         }
         swf.addByTimestamp_sec(timestamp); // 向single word freq 加入该时间戳
     }
+
+    public SingleWordFreq getSingleWordFreq(String word){
+        return word_freq.get(word) ;
+    }
+
+    public Integer getDictId(String word){
+        return word_dict.get(word);
+    }
+
+
 }

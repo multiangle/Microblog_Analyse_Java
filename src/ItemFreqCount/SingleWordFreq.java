@@ -2,6 +2,7 @@ package ItemFreqCount;
 
 import com.sun.webkit.event.WCChangeEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date ;
 import java.util.Calendar ;
@@ -10,7 +11,8 @@ import java.util.Calendar ;
  * Created by multiangle on 2016/7/24.
  */
 
-public class SingleWordFreq {
+public class SingleWordFreq implements Serializable{
+    private static final long serialVersionUID = 1L ;
     private String word ;  // 该对象所对应的单词
     private int dict_id ; // 该对象在词典中的id
 

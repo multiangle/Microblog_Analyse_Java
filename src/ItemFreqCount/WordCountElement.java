@@ -4,11 +4,13 @@ package ItemFreqCount;
  * Created by multiangle on 2016/7/24.
  */
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date ;
 
-public class WordCountElement implements DateInElementInterface{
+public class WordCountElement implements DateInElementInterface,Serializable{
+    private static final long serialVersionUID = 1L ;
     private Date date ;
     private long timestamp ;
     private int dict_id ;

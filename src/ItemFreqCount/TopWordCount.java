@@ -2,13 +2,15 @@ package ItemFreqCount;
 
 import com.sun.webkit.event.WCChangeEvent;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * Created by multiangle on 2016/7/24.
  */
-public class TopWordCount {
+public class TopWordCount implements Serializable {
+    private static final long serialVersionUID = 1L ;
     private ArrayList<TopWordCountArrayElement> top_word_as_day ;
     private ArrayList<TopWordCountArrayElement> top_word_as_mon ;
     private ArrayList<TopWordCountArrayElement> top_word_as_year ;
@@ -51,7 +53,8 @@ public class TopWordCount {
     }
 }
 
-class TopWordCountArrayElement implements DateInElementInterface{
+class TopWordCountArrayElement implements DateInElementInterface,Serializable{
+    private static final long serialVersionUID = 1L ;
     private long timestamp ;
     private Date date ;
     private HashMap<Integer, WordCountElement> freq_data ;
