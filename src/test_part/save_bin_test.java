@@ -1,7 +1,6 @@
 package test_part;
 
 import java.io.*;
-
 /**
  * Created by multiangle on 2016/8/2.
  */
